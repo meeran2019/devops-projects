@@ -20,4 +20,10 @@ NOTE: --permanent used to add changes permanently.
 To allow all incoming traffic from 192.168.1.10 in the public zone: 
     sudo firewall-cmd --zone=public --add-source=192.168.1.10
 
+To add new services: 
+    firewall-cmd --add-service=http --permanent     
+
+To get services: 
+    firewall-cmd --get-services 
     
+        

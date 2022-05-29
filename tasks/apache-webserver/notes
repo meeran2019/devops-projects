@@ -1,0 +1,94 @@
+
+Introduction: 
+
+    Apache is a web server that process http request.
+    It is open source.
+    Default port is 80. 
+    Serves static page.
+
+Apache server alternatives: 
+    Nginx 
+    Apache Tomcat 
+
+
+Apache web server vs Tomcat: 
+    httpd serve static content. Tomcat is application server to serve java application. 
+    
+Configuration: 
+    httpd   -   centos 
+    apache  -   ubuntu 
+
+    /etc/httpd/
+
+    /etc/httpd/conf/httpd.conf      -   global Configuration
+    magic                           -   used for determining MIME type basedon firsr few bytes of text.
+
+    /var/www/html                   -   Document Root 
+
+
+Virtual Host: 
+
+    Can configure to run a multiple website on single server. 
+
+    Types: 
+        Name based virtual host. 
+            example1.com & example2.com - 10.11.12.13 
+        Address based or IP based virtual host.     
+            example1.com - 10.11.12.13 , example2.com - 10.11.12.14 
+            configure multiple IP address in same server. 
+
+    For virtual host, requires below configuration to process, 
+        /etc/httpd/sites-available/your_domain.conf
+        /etc/httpd/sites-enabled/your_domain.conf
+    
+Security: 
+
+    Apache displays version and other server information: 
+        vim /etc/httpd/conf/httpd.conf - ServerSignature Off
+
+------------------------------------------------------------------------------------------------------------
+LAUNCH SINGLE WEBSITE USING APACHE WEBSERVER 
+------------------------------------------------------------------------------------------------------------    
+Apache webserver hosts static website using html. Serve dynamic page using php. 
+
+Create Default Page and Backup of Configuration File: 
+
+    Web page is loaded from /var/www/html/index.html folder. When this folder is empty, take the details from /etc/httpd/conf.d/welcome.conf to display the page. 
+
+    Create the index.html file and place under /var/www/html path. 
+
+Add ServerName Directive in Configuration File: 
+
+    ServerName - On which IP address, web server is installed. 
+    Incase multiple IP address is assigned to server, apache will listen on all IP address in server. To avoid and instruct apache to listen on specific IP address alone. 
+
+    Example: 
+        ServerName  10.11.12.130 
+
+Start Apache Server: 
+
+    sudo systemctl start httpd 
+    sudo systemctl restart httpd 
+    sudo systemctl stop httpd 
+
+Text Based Browsers: 
+
+    elinks, lynx, curl 
+
+    elinks --dump http://10.11.12.120:80  or http://10.11.12.120
+    lynx --dump http://10.11.12.120:80  or http://10.11.12.120
+    curl http://10.11.12.120:80  or http://10.11.12.120
+
+    port 80 is default web port. If not mention, browser append and send port 80 as default. 
+
+Why we use index.html as default page: 
+
+    DirectoryIndex - It sets the file that Apache will be used to serve web page. 
+
+        <IfModule dir_module>
+        DirectoryIndex index.html
+        </IfModule>
+
+    Here maintained as index.html , so created with same name under /var/www/html path. 
+
+    
