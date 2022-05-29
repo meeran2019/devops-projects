@@ -124,3 +124,63 @@ NAME BASED VIRTUAL HOSTING:
 
 Introduction:
 
+    Multiple websites can be launched using virtual hosting.
+
+Name Based: 
+    Multiple sites (example1.com,example2.com) hosted on single IP. 
+
+IP Based: 
+    Each website have their own IP address.
+    example1.com - 10.11.12.13 , example2.com - 10.11.12.14 
+
+Make changes in Hosts file: 
+
+    DNS Server will be used to configure websites to IP address. Since no DNS server, same logic will be done by using /etc/hosts.
+
+        ::1         localhost6 localhost6.localdomain6
+        14.333.15.31 master.example.com master
+        14.333.15.31 www.example1.com www
+        14.333.15.31 www.example2.com www
+        14.333.15.31 www.example3.com www
+
+Create home page for websites: 
+
+    Under /var/www/html , create example1,example2,example3 directory. 
+    Under example directory, place the index.html file. 
+
+Edit httpd.conf file: 
+
+    NOTE:   Incase trying in local, use localhost. 
+            If IP address used, then first site will be taken as default. 
+
+    NameVirtualHost 10.11.12.13         -   No longer needed in latest apache versions.
+
+        <VirtualHost ip-address>
+            Servername site-name
+            DocumentRoot folder-path 
+        </VirtualHost>
+
+        <VirtualHost 11.12.136.31>
+            ServerName www.example1.com
+            DocumentRoot /var/www/html/example1
+        </VirtualHost>
+
+        <VirtualHost 11.12.136.31>
+            ServerName www.example2.com
+            DocumentRoot /var/www/html/example2
+        </VirtualHost>
+
+        <VirtualHost 11.12.136.31>
+            ServerName www.example3.com
+            DocumentRoot /var/www/html/example3
+        </VirtualHost>
+
+Test Syntax and Reload Apache server: 
+
+    service httpd configtest        -   syntax check.
+    systemctl reload httpd          -   reload apache server 
+
+------------------------------------------------------------------------------------------------------------
+IP BASED VIRTUAL HOSTING: 
+------------------------------------------------------------------------------------------------------------ 
+
