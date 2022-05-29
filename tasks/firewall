@@ -1,0 +1,23 @@
+
+Firewall is used to monitor the inbound or outbond traffic flow. 
+
+Firewalld and ufw are popular firewall tools.
+
+To Find Open Ports: 
+    ss -tuln | grep LISTEN
+
+
+To block traffic on port: 
+    sudo firewall-cmd --remove-port=22/tcp --permanent
+
+To allow traffic on port: 
+    sudo firewall-cmd --add-port=22/tcp --permanent
+
+sudo firewall-cmd --reload    
+
+NOTE: --permanent used to add changes permanently. 
+
+To allow all incoming traffic from 192.168.1.10 in the public zone: 
+    sudo firewall-cmd --zone=public --add-source=192.168.1.10
+
+    
