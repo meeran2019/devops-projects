@@ -10,7 +10,6 @@ Apache server alternatives:
     Nginx 
     Apache Tomcat 
 
-
 Apache web server vs Tomcat: 
     httpd serve static content. Tomcat is application server to serve java application. 
     
@@ -24,7 +23,6 @@ Configuration:
     magic                           -   used for determining MIME type basedon firsr few bytes of text.
 
     /var/www/html                   -   Document Root 
-
 
 Virtual Host: 
 
@@ -48,7 +46,10 @@ Security:
 
 ------------------------------------------------------------------------------------------------------------
 LAUNCH SINGLE WEBSITE USING APACHE WEBSERVER 
-------------------------------------------------------------------------------------------------------------    
+------------------------------------------------------------------------------------------------------------ 
+
+NOTE: If any change in configuration, reload the httpd service. service httpd configtest to check syntax. 
+   
 Apache webserver hosts static website using html. Serve dynamic page using php. 
 
 Create Default Page and Backup of Configuration File: 
@@ -68,8 +69,10 @@ Add ServerName Directive in Configuration File:
 Start Apache Server: 
 
     sudo systemctl start httpd 
-    sudo systemctl restart httpd 
+    sudo systemctl restart httpd        -   server stop for a moment. 
+    sudo systemctl reload httpd         -   reload the configuration file and not stop server. 
     sudo systemctl stop httpd 
+    service httpd configtest            -   to check config syntax. 
 
 Text Based Browsers: 
 
@@ -91,4 +94,33 @@ Why we use index.html as default page:
 
     Here maintained as index.html , so created with same name under /var/www/html path. 
 
-    
+Default welcome page: 
+
+    If DirectoryIndex file not found, then based on /etc/httpd/conf.d/welcome.conf configuration, load the noindex/index.html page. 
+
+Change Directory Index: 
+
+    Multiple html files can be placed under DirectoryIndex.
+    It searches in order and if file found under /var/www/html path , use that. 
+
+        <IfModule dir_module>
+        DirectoryIndex index.html i.html j.html 
+        </IfModule>
+
+Role of DocumentRoot: 
+
+    DocumentRoot - From which location, search for index.html file. 
+
+    DocumentRoot "/var/www/html"    -   This path can be changed , so new DocumentRoot path can be used.
+
+Change Default Port: 
+
+    Listen Directive - It is used on which port to listen.
+
+
+------------------------------------------------------------------------------------------------------------
+NAME BASED VIRTUAL HOSTING: 
+------------------------------------------------------------------------------------------------------------ 
+
+Introduction:
+
