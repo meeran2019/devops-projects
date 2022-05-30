@@ -180,7 +180,133 @@ Test Syntax and Reload Apache server:
     service httpd configtest        -   syntax check.
     systemctl reload httpd          -   reload apache server 
 
+    NOTE: If IP address used, then first site will be taken as default. 
+
 ------------------------------------------------------------------------------------------------------------
 IP BASED VIRTUAL HOSTING: 
 ------------------------------------------------------------------------------------------------------------ 
 
+Introduction: 
+
+    Launch multiple websites on multiple ips.
+
+Add additional IP address: 
+
+    Create the ifcfg-eth33 file under the folder /etc/sysconfig/network-scripts/ to update the 3 ip address.
+    Restart the network service (systemctl restart network)
+
+    ip a s eth0     -> To check the configuration. 
+
+Modify host file: 
+
+    /etc/hosts file.
+    10.11.12.1  www.example1.com www
+    10.11.12.2  www.example2.com www
+    10.11.12.3  www.example3.com www
+
+Create home page for each site: 
+
+    Under /var/www/html, create 3 directories. 
+
+    /var/www/html/
+        example1
+            index.html 
+        example2
+            index.html
+        example3
+            index.html 
+
+Modify configuration file: 
+
+    Add the below entry in /etc/httpd/conf/httpd.conf file for different ip address. 
+
+        <VirtualHost 10.11.12.1>
+            ServerName 10.11.12.1
+            DocumentRoot /var/www/html/example1
+        </VirtualHost>
+
+        <VirtualHost 10.11.12.2>
+            ServerName 10.11.12.2
+            DocumentRoot /var/www/html/example2
+        </VirtualHost>
+
+        <VirtualHost 10.11.12.3>
+            ServerName 10.11.12.3
+            DocumentRoot /var/www/html/example3
+        </VirtualHost>
+
+Test IP based virtual hosting:
+
+    NOTE: Here able to access by both IP address and website name. 
+
+------------------------------------------------------------------------------------------------------------
+HOST BASED SECURITY: 
+------------------------------------------------------------------------------------------------------------ 
+
+Introduction: 
+
+    Grant/Deny access based on hostname, ip address, Network, domain. 
+
+        Require 
+        RequireAll      -   All condition to be satisfied to give access. 
+        RequireAny      -   Any condition to be satisfied to give access. 
+        RequireNone     
+
+Case1: 
+
+    Deny access to example1: 
+
+        <Directory /var/www/html/example1>
+            Require all denied 
+        </Directory>
+
+    Allow from ip 10.11.12.13 but deny from 10.11.12.14: 
+
+        <Directory /var/www/html/example2>
+            <RequireAll>
+                Require ip 10.11.12.13
+                Require not ip 10.11.12.14 
+            </RequireAll>
+        </Directory>
+
+Case2: 
+
+    Allow only from IP 10.11.12.13:
+
+        <Directory /var/www/html/example1>
+            Require ip 10.11.12.13  / Require host host-name
+        </Directory>
+
+    Allow access from both ip 10.11.12.15 & 10.11.12.16 
+        
+        <Directory /var/www/html/example2>
+            Require ip 10.11.12.15
+            Require ip 10.11.12.16
+        </Directory>
+
+    Allow access from NETWORK 10.11.12.15/16 
+
+        <Directory /var/www/html/example3>
+            Require ip 10.11   
+        </Directory>
+
+Case3: 
+
+    Allow access from everywhere except 10.11.12.18
+
+        <Directory /var/www/html/example>
+            <RequireAll>
+                Require all granted
+                Require not ip 10.11.12.18
+            </RequireAll>
+        </Directory>
+
+------------------------------------------------------------------------------------------------------------
+APACHE USER AUTHENTICATION:
+------------------------------------------------------------------------------------------------------------ 
+
+Introduction: 
+
+    Only authenticated users able to view the site. 
+
+    
