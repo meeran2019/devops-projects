@@ -386,4 +386,47 @@ Remove user authentication settings:
 
     Remove the .htacess file and Allowoverride in httpd.conf file.
 
+
+------------------------------------------------------------------------------------------------------------
+PER USER WEB DIRECTORIES: 
+------------------------------------------------------------------------------------------------------------ 
+
+Introduction: 
+
+    Allow users to have website in their home directories.
+
+
+------------------------------------------------------------------------------------------------------------
+OTHER IMPORTANT CONFIGURATION OPTIONS: 
+------------------------------------------------------------------------------------------------------------ 
+
+Indexes Option: 
+
+    Index - Instruct web server to display directory listing if index file is not present.
+        This further depends upon "DirectoryIndex" which helps web server in deciding which default page to display. 
+
+    Default is index.html file, then it displays content of directory.
+
+Edit Configuration File: 
+    -Indexes    -   Disable, so user cant see the index files.
+    Indexes     -   Enable, so user can see the index files. 
+
+    <Directory /var/www/html/example1/test>
+        Options -Indexes
+    </Directory>
+
+    <Directory /var/www/html/example1/soft>
+        Options Indexes
+    </Directory>
+    
+    1. Created 2 folders test & soft under /var/www/html/example1
+    2. Added aboove configuration.
+    3. If DirectoryIndex(index.html) not found, 
+        3.a In test, it failed with permission error.
+        3.b In soft, displays directory indexes.
+
+
+Redirect Option: 
+
+    It is used to redirect some URL/page to another one. 
     
