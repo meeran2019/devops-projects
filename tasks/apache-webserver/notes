@@ -309,4 +309,81 @@ Introduction:
 
     Only authenticated users able to view the site. 
 
+Create Apache User: 
+
+    htpasswd -c -m /etc/httpd/webpass user-name 
+
+        -c  -   create new file. If already exixts, overwrite it. Only first time use this. 
+        -m  -   use MD5 encryption. 
+
+Edit httpd.conf: 
+
+    <Directory /var/www/html/example1>
+        AuthType Basic 
+        AuthName "Restricted Access"
+        AuthUserFile "/etc/httpd/webpass"
+        Require user sheik
+    </Directory>
+
+    Auth Type       -   Basic (password will sent in clear text) & Digest
+    AuthName        -   Message will be shown during restriction.
+    AuthUserFile    -   File where the user authentication details are stored.
+    Require user    -   Which users are allowed. 
+
+Verify Authentication: 
+
+    curl www.example1.com -u user-name 
+
+    elinks --dump http://user-name:password@ip-address 
+
+Use .htaccess: 
+
+    Instead of create webpass file, can create .htaccess file under /var/www/html/example1.
+    To effect .htaccess file, update "AllowOverride" from None to 'AuthConfig" in httpd.conf file.
+
+    .htaccess content is same as Directory directive. 
+                AuthType Basic 
+                AuthName "Restricted Access"
+                AuthUserFile "/etc/httpd/webpass"
+                Require user sheik
+
+    Edit httpd.conf file and place the below content, 
+
+        <Directory /var/www/html/example1>
+            AllowOverride AuthConfig
+        </Directory>    
+
+Verification: 
+
+    curl www.example1.com -u user-name 
+
+Allow access to all users: 
+
+                AuthType Basic 
+                AuthName "Restricted Access"
+                AuthUserFile "/etc/httpd/webpass"
+                Require valid-user 
+
+    valid-user - all users maintained under webpass is allowed to access. 
+
+Group Based Authentication: 
+
+    Create a group and assign a user to that. Group name is used to control the access. 
+
+    Create a webgroup file, 
+        /etc/httpd/webgroup 
+            webadmin: sheik
+            operator: meeran 
+            
+    .htaccess file: 
+            AuthType Basic
+            AuthName "Restricted Access"
+            AuthUserFile "/etc/httpd/webpass"
+            AuthGroupFile "/etc/httpd/webgroup"
+            Require group webadmin
+
+Remove user authentication settings: 
+
+    Remove the .htacess file and Allowoverride in httpd.conf file.
+
     
