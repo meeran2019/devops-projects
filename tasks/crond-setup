@@ -1,0 +1,5 @@
+
+1. Install cronie package.
+2. start crond service.
+3. crontab -e   -> To update / add the crontab 
+4. crontab -l   -> To list crontab. 
