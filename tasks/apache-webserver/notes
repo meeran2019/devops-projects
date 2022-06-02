@@ -429,4 +429,21 @@ Edit Configuration File:
 Redirect Option: 
 
     It is used to redirect some URL/page to another one. 
-    
+
+    a.) Redirect http://stapp01.stratos.xfusioncorp.com:<Port>/ to http://www.stapp01.stratos.xfusioncorp.com:<Port>/ i.e non www to www. This must be a permanent redirect i.e 301
+
+        <VirtualHost *:8087>
+            ServerName stapp01.stratos.xfusioncorp.com:8087/
+            Redirect 301 / http://www.stapp01.stratos.xfusioncorp.com:8087/
+        </VirtualHost>
+
+
+    b.) Redirect http://www.stapp01.stratos.xfusioncorp.com:<Port>/blog/ to http://www.stapp01.stratos.xfusioncorp.com:<Port>/news/. This must be a temporary redirect i.e 302.
+
+    NOTE: While redirect use the source with /blog/ 
+
+        <VirtualHost *:8087>
+            ServerName www.stapp01.stratos.xfusioncorp.com:8087/blog/
+            Redirect 302 /blog/ http://www.stapp01.stratos.xfusioncorp.com:8087/news/
+        </VirtualHost>
+

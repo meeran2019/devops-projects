@@ -1,0 +1,10 @@
+
+Postfix is open source MTA (Mail Transfer Agent). Used for sending emails.
+Dovecot is IMAP/POP3 server. Used for receiving emails. 
+Roundcube - To access email using web client.
+
+https://linuxtechlab.com/setting-mail-server-postfix-dovecot-squirrelmail/
+
+https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-postfix-on-ubuntu-20-04
+
+
