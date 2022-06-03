@@ -1,0 +1,19 @@
+
+Interactive: 
+
+    It describes the way shell works for the user. 
+    Its communication between user and shell. 
+    Shell accepts the command from user in terminal. 
+    Runs in foreground. 
+
+Non Interactive:  
+
+    User saves a series of commands in file (shell script) and executes after. 
+    Run the commands as script.
+    Runs in background. 
+
+To create non interactive user: 
+    
+    useradd user-name -s /sbin/nologin 
+
+

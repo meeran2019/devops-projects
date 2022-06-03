@@ -1,0 +1,5 @@
+
+1. To create the script with .sh and give the execution permission.(ugo+x)
+2.  command ->  zip path/zipped-file.zip list-of-file-to-zip
+3. command ->   scp hostname@ip-address:file-to-send
+4. for passwordless, create ssh-keygen and use ssh-copy-id  user@ip-address to place in authorized user folder. 

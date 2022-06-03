@@ -447,3 +447,52 @@ Redirect Option:
             Redirect 302 /blog/ http://www.stapp01.stratos.xfusioncorp.com:8087/news/
         </VirtualHost>
 
+------------------------------------------------------------------------------------------------------------
+IMPLEMENT SECURITY: 
+------------------------------------------------------------------------------------------------------------ 
+
+Implement HTTPS: 
+
+    For https, require to configure 2 files. 
+        /etc/httpd/conf/httpd.conf 
+        /etc/httpd/conf.d/ssl.conf 
+
+    Requires certificates. 
+
+ssl.conf file: 
+
+    If SSL File not found, install "yum install mod_ssl"
+    SSLCertificateFile
+    SSLCertificateKeyFile 
+
+Create Private Key: 
+
+    install openssl 
+
+    openssl genrsa -out key-name.key 2048 
+
+Create self signed certificate: 
+
+    1. Create a private key openssl genrsa -out key-name.key 2048
+    2. Create a certificate: 
+            openssl req -new -key master.key -out master.crt -x509 
+    3. Update the SSLCertificateKeyFile & SSLCertificateFile path. 
+    4. Verify https access: 
+        openssl s_client -connect www.example.com:443 | head -6 
+    
+
+------------------------------------------------------------------------------------------------------------
+PAM Authentication: 
+------------------------------------------------------------------------------------------------------------ 
+
+    https://www.linuxschool.net/note?os=CentOS_8&p=httpd2&f=2
+
+    auth       required     pam_listfile.so item=user sense=deny file=/etc/httpd/conf.d/denyusers onerr=succeed
+    auth       include      system-auth
+    account    include      system-auth 
+
+    pam_unix.so 
+    
+       
+
+

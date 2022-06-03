@@ -1,0 +1,6 @@
+
+
+find . -name '*.jpg' -exec cp --parents \{\} /target \;
+
+find /source/path -user owner -exec cp --parents \{\} destina-path \;
+
