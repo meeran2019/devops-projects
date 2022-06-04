@@ -3,7 +3,7 @@
         [all-servers]
         alias-name  ansible_user=xxx ansible_host=11.12.13.14 ansble_ssh_pass=qwer
 
-2. Use copy module
+2. Use copy module:
 
     - copy:
     src: /srv/myfiles/foo.conf
@@ -12,4 +12,3 @@
     group: foo
     mode: 0644        
 
-    

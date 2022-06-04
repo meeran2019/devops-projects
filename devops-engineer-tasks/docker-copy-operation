@@ -1,0 +1,12 @@
+
+For docker copy operation from host to container: 
+
+1. To copy file from host to container: 
+        docker container cp [OPTIONS] CONTAINER:SRC_PATH DEST_PATH|     -> From container to host. 
+        docker cp [OPTIONS] SRC_PATH|- CONTAINER:DEST_PATH              -> From host to container. 
+        
+2. To verify whether copied: 
+        docker exec -it 9571 /bin/bash
+        docker exec -it container /bin/bash 
+
+        
