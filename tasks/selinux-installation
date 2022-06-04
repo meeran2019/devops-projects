@@ -7,12 +7,18 @@ Introduction:
         It restrict users and process to bound to specific policy. 
         SELinux resolves the issue by both confining privileged access and automating security policy creation.
 
+        From SELinux’s perspective, a Linux system is divided into a number of different objects. Objects, for example, are all files, processes, users, sockets, and pipes in a system. In a SELinux context, every such object gets a special label. SELinux policies are the rules to control access to these objects using the labels defined on them:
+
         SELinux default DENY unless explicitly allowed.
 
         It has 2 global modes, 
             permissive  -   It functions like Discretinary Access Control (DAC) but logging violation to SELinux. 
             enforcing   -   It applies strict policy not to allow any unless explicitily allowed.
 
+Installation: 
+
+    sudo rpm -aq | grep selinux
+    yum install policycoreutils-python setools setools-console setroubleshoot* policycoreutils-devel
 
 Configuration:               
 
@@ -20,13 +26,10 @@ Configuration:
 
     SELINUX=disabled / enforcing / permissive 
 
-
-
-
 Modes and Status: 
 
     getenforce              -   To check current SELinux mode. 
     sestatus                -   To set the status.
     setenforce permissive   -   TO set the permission.
-    
+
     
