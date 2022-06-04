@@ -1,0 +1,54 @@
+
+Introduction: 
+    FTP -   File Transfer Protocol 
+        -   Used for transfering, uploading, downloading data from server to client or client to server.
+
+    SFTP    -  Secure File Transfer Protocol.
+            -   It packaged with SSH to provide secure connection.
+
+Install SSH: 
+
+    sudo yum –y install openssh-server openssh-clients
+    sudo systemctl start sshd
+    sudo systemctl status sshd
+    sudo systemctl enable sshd
+    sudo systemctl disable sshd
+
+SSH Configuration: 
+
+    sudo vim /etc/ssh/sshd_config
+    PermitRootLogin no          -   To disable root login.
+    Port 2002                   -   TO change default port.
+
+    Match User user-name        -   if user is matched, subsequent configuration applies only to this user.
+    ForceCommand internal-sftp  -   Connect user only in SFTP mode and disable access to shell.
+    PasswordAuthentication no   -   Disable login and password based access.
+    ChrootDirectory /var/sftp   -   Restrict user only with in this directory.
+    PermitTunnel no             -   Disable tunneling.
+    AllowAgentForwarding no     -   diable agent forward.
+    AllowTcpForwarding          -   disable port forwarding.
+    X11Forwarding no            -   disable graphic app forwarding.
+
+    AllowGroups sftp sshd 
+    match Group sftp 
+    ChrootDirectory /sftp/%u
+    ForceCommand internal-sftp
+
+    service sshd restart
+
+Tasks:
+
+    https://devanswers.co/configure-sftp-web-server-document-root/
+
+    Create a user and set password, enable password authentication and change root directory.
+
+    1. Ensure sshd service is running.
+    2. In vim /etc/ssh/sshd_config file , update the configuration  with "Match User" at end. 
+    3. Ensure the Chrootdirectory (var/www/) and permission.
+        Chrootdirectory should have 755 permission and root owner.(root:root)
+        DocumentRoot (/var/www/html) should have 775 and user owner. (root:user-group / user:user)
+
+
+
+
+

@@ -1,0 +1,66 @@
+
+Introduction: 
+
+    firewalld is default firewall management tool. 
+    It is good practive to disable firewalld to use iptables. 
+
+Stop firewalld: 
+
+    sudo systemctl stop firewalld
+    sudo systemctl disable firewalld
+    sudo systemctl mask --now firewalld         -   will not be invoked by any other program.
+
+Install iptables: 
+
+    sudo yum install iptables-services -y
+    sudo systemctl start iptables
+    sudo systemctl start ip6tables
+    sudo systemctl enable iptables
+    sudo systemctl enable ip6tables
+    sudo systemctl status iptables
+    sudo systemctl status ip6tables
+
+To check current IP Rules: 
+
+    sudo iptables -nvL
+    sudo ip6tables -nvL
+
+Configure IP Tables: 
+
+    Add Rules: 
+
+        https://upcloud.com/resources/tutorials/configure-iptables-centos
+
+        sudo iptables -A INPUT -p tcp --dport ssh -j ACCEPT
+        sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+        sudo iptables -I INPUT 1 -p tcp --dport 80 -j ACCEPT    -   insert at specific position.
+        sudo iptables -D INPUT 2                                -   to delete specific index.
+
+
+    Save configuration: 
+
+        sudo iptables-save > /etc/sysconfig/iptables
+        sudo iptables-restore < /etc/sysconfig/iptables     -   overwrite current rules.
+        sudo iptables-restore -n < /etc/sysconfig/iptables  -   keeping current rules.
+
+Rule Configuration more: 
+
+    https://www.digitalocean.com/community/tutorials/iptables-essentials-common-firewall-rules-and-commands
+
+
+For permanent change: 
+
+     /etc/sysconfig/iptables
+     1. service iptables save
+     2. service iptables restart
+     3. chkconfig iptables on
+
+Task: 
+
+    sudo iptables -I INPUT 1 -p tcp --dport 6000 -j REJECT
+    sudo iptables -I INPUT 1 -s 172.16.238.14 -j ACCEPT
+
+    sudo iptables -I INPUT 1 -p tcp --dport 8085 -j REJECT
+    sudo iptables -I INPUT 1 -p tcp -s 172.16.238.14 --dport 8085 -j ACCEPT
+    
+

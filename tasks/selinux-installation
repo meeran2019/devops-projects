@@ -1,0 +1,32 @@
+
+Introduction: 
+    Security Enhanced Linux. 
+
+    SELinux is Mandatory Access Control system.
+    For priviled users, got higher level access and cause security issues. 
+        It restrict users and process to bound to specific policy. 
+        SELinux resolves the issue by both confining privileged access and automating security policy creation.
+
+        SELinux default DENY unless explicitly allowed.
+
+        It has 2 global modes, 
+            permissive  -   It functions like Discretinary Access Control (DAC) but logging violation to SELinux. 
+            enforcing   -   It applies strict policy not to allow any unless explicitily allowed.
+
+
+Configuration:               
+
+    /etc/selinux/config
+
+    SELINUX=disabled / enforcing / permissive 
+
+
+
+
+Modes and Status: 
+
+    getenforce              -   To check current SELinux mode. 
+    sestatus                -   To set the status.
+    setenforce permissive   -   TO set the permission.
+    
+    

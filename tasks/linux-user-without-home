@@ -1,0 +1,5 @@
+
+useradd --no-create-home <user-name>
+
+useradd -M <user-name>
+

@@ -1,0 +1,10 @@
+
+1. yum install net-tools       -   to install netstat tools.
+2. Check port is listening or not. If port is already listening, get the process #.
+3. kill process-no 
+4. restart the service.
+
+
+
+
+

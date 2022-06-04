@@ -493,6 +493,42 @@ PAM Authentication:
 
     pam_unix.so 
     
-       
+------------------------------------------------------------------------------------------------------------
+ADD RESPONSE HEADER: 
+------------------------------------------------------------------------------------------------------------ 
+
+https://techexpert.tips/apache/apache-add-header/
+
+    ServerSinature & ServerTokens: 
+
+        ServerSignature On/Off/EMail 
+
+        ServerTokens Prod[uctOnly]
+        Response to clients: Server: Apache       
+
+        ServerSingature - Appears at bottom of server generted pages.
+        ServerTokens - Decides what apache will send back in response header. 
+
+    Turn Off PHP version information: 
+
+        Update parameter "expose_php = Off" in  /etc/php.ini
+
+        <IfModule mod_headers.c>
+            Header unset Server
+            Header always unset X-Powered-By
+            Header unset X-Powered-By
+            Header unset X-CF-Powered-By
+            Header unset X-Mod-Pagespeed
+            Header unset X-Pingback
+        </IfModule>
+
+    In /etc/httpd/conf/httpd.conf file, place at end of line: 
+
+        Header always set X-XSS-Protection  "1;mode=block"
+        Header always set X-Content-Type-Options "nosniff"
+        Header always set X-Frame-Options "SAMEORIGIN"
+
+        curl -v address:port    -> -v will show request and response header details. 
+
 
 

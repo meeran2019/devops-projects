@@ -1,0 +1,14 @@
+
+If application failed to connect to mariadb, 
+    1. Check whetehr mariadb server is running, 
+            systemctl status mariadb 
+            systemctl restart mariadb 
+    2. If failed to start, check the logs in, 
+            journalctl -xe -u mariadb 
+            cd /var/log/mariadb/mariadb.log 
+    3. Check the error message in log. If error is "[ERROR] mysqld: Can't create/write to file '/var/run/mariadb/mariadb.pid' (Errcode: 13)": 
+            chown mysql:mysql /var/run/mariadb 
+    4. Restart the service:
+            systemctl status mariadb
+    5. To check connectivity: 
+            telnet ip-address port 
