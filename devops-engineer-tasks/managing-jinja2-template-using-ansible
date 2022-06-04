@@ -1,0 +1,21 @@
+
+Execute playbook in DRY RUN: 
+    
+    ansible-playbook playbook.yml -i inventory --check
+
+1. Check the host name. hosts field. 
+
+2. ansible_host=ip-address. To get host-name , inventory_hostname 
+
+3. Refer the variable in template file as {{ variable-name }}  under templates module. 
+
+4. Using template module, copy the converted file and update the corresponding values: 
+
+        - name: Template a file to /etc/file.conf
+          ansible.builtin.template:
+            src: /mytemplates/foo.j2
+            dest: /etc/file.conf
+            owner: bin
+            group: wheel
+            mode: '0644'
+
