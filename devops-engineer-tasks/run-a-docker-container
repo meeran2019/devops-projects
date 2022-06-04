@@ -1,0 +1,13 @@
+
+docker container run -d --name container-name image-name 
+
+    -d      -   detached run in background.
+    run     -   to run the container. 
+    create  -   to create the container. 
+    start   -   to start the container. 
+
+docker image ls             -   to list the image. 
+docker container rm id      -   to remove container 
+docker ps -a                -   to show exited container. 
+
+

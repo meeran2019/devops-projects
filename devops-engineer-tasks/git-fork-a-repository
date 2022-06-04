@@ -1,5 +1,5 @@
 
 
 git clone   -   download the repository to local using git. 
-git fork    -   download server side copy of repository. In example git hub, fork to another account. 
+git fork    -   download server side copy of repository. In example git hub, fork to another account with same or different name. 
 
