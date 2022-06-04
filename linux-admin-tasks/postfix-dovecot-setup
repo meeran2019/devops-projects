@@ -7,4 +7,10 @@ https://linuxtechlab.com/setting-mail-server-postfix-dovecot-squirrelmail/
 
 https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-postfix-on-ubuntu-20-04
 
+https://www.linuxschool.net/note?os=CentOS_8&p=mail&f=1
 
+
+Tasks: 
+
+    vi /etc/dovecot/dovecot.conf
+        
