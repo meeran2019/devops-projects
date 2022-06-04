@@ -1,0 +1,30 @@
+
+1. Created the below yaml file: 
+
+      apiVersion: v1
+      kind: Pod
+      metadata:
+        creationTimestamp: null
+        labels:
+          run: print-envars-greeting
+        name: print-envars-greeting
+      spec:
+        containers:
+        - image: bash
+          name: print-env-container
+          env:
+          - name: GREETING
+            value: "Welcome to"
+          - name: COMPANY
+            value: "DevOps"
+          - name: GROUP
+            value: Group
+          command: ["echo","$(GREETING) $(COMPANY) $(GROUP)"]
+
+
+      NOTE: Command to be checked properly.
+
+2. kubectl apply -f name.yml file. 
+
+3. To verify the echo logs in container: 
+      kubectl logs pod-name 

@@ -1,0 +1,9 @@
+
+Unarchive module helps to unpack or uncompress the file from archive file such as tar, tar.gz, zip.
+
+# Example from Ansible Playbooks
+- unarchive:
+    src: foo.tgz
+    dest: /var/lib/foo
+
+    
