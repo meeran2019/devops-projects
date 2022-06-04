@@ -1,0 +1,16 @@
+
+
+1. Create the deployment: 
+
+        kubectl create deploy deploy-name --image=image-name --replicas=2
+
+2. Create the service: 
+
+        kubectl expose deploy deploy-name --port=8080 --target-port=8080 --dry-run=client -o yaml 
+
+        In yaml file, update the type: nodePort and nodePort: 30010 
+
+3. Verification: 
+
+    Nodeport expose on Node. Get Node IP address nad try to CURL with node port. 
+

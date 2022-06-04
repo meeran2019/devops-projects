@@ -1,0 +1,13 @@
+
+Git revert used to revert the specific commit history. Only the specific commit is removed. 
+
+Git reset used to reset to specific commit and no new commit will be there. 
+
+git log --oneline   -> Shows list of commit. 
+
+git revert commit-id -e 
+    commit message 
+
+git diff commit-id-1 commit-id-2        -> Shows the commit differences. 
+
+
