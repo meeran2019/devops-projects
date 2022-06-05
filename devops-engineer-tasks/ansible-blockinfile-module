@@ -1,0 +1,17 @@
+
+lineinfile      -   to modify/insert a line 
+blockinfile     -   to insert/update/delete block of lines.
+
+dest / path     -   in latest version, use path.
+backup          -   to get backup and useful if any failures. 
+marker          -   default BEGIN and END added as part of changes and can be override using marker.
+
+
+To insert at end of file: 
+
+    dest: file/to/path 
+    block: | 
+        statements
+
+By default, bloc inserted at end of line. 
+

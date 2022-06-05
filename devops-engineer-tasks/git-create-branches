@@ -1,0 +1,5 @@
+
+git branch                  -   list of branches.
+git checkout branch-name    -   switch to other branch.
+git checkout -b branch-name -   to create and switch to new branch.
+git diff branch1..branch2   -   to compare 2 branches. 
