@@ -1,0 +1,108 @@
+
+To login to container: 
+  kubectl exec -it container -- /bin/bash 
+  kubectl exec -it mysql-deployment-86cdbcbc45-2t7dp -- /bin/bash
+
+Create a persistent volume: 
+
+    apiVersion: v1
+    kind: PersistentVolume
+    metadata:
+      name: mysql-pv
+    spec:
+      hostPath:
+        path: "/mnt/"
+      capacity:
+        storage: 250Mi
+      accessModes:
+        - ReadWriteMany
+        
+
+Create persistentvolumeclaim: 
+
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: mysql-pv-claim
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 250Mi
+
+Create deployment: 
+
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: mysql-deployment
+      name: mysql-deployment
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: mysql-deployment
+      strategy: {}
+      template:
+        metadata:
+          creationTimestamp: null
+          labels:
+            app: mysql-deployment
+        spec:
+          volumes:
+          - name: pv-storage
+            persistentVolumeClaim:
+              claimName: mysql-pv-claim
+          containers:
+          - image: mysql
+            name: mysql
+            env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-root-pass
+                  key: password
+            - name: MYSQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-db-url
+                  key: database
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-user-pass
+                  key: username
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-user-pass
+                  key: password
+            volumeMounts:
+              - mountPath: "/var/lib/mysql"
+                name: pv-storage
+            resources: {}
+
+
+Create a nodeport service: 
+
+      apiVersion: v1
+      kind: Service
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: mysql-deployment
+        name: mysql
+      spec:
+        type: NodePort
+        ports:
+        - port: 3306
+          protocol: TCP
+          targetPort: 3306
+          nodePort: 30007
+        selector:
+          app: mysql-deployment
+      status:
+        loadBalancer: {}
