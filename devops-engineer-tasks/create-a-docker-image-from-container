@@ -1,0 +1,10 @@
+
+To get image from container: 
+    docker commit - used to get the image from container.
+    docker commit container-id repository:tag (image) 
+
+To verify: 
+
+    docker image ls 
+
+    

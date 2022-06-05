@@ -1,0 +1,31 @@
+
+1.  Create the pod with shared volume: 
+        apiVersion: v1
+        kind: Pod
+        metadata:
+          creationTimestamp: null
+          labels:
+            run: volume-share-devops
+          name: volume-share-devops
+        spec:
+          volumes:
+          - name: volume-share
+            emptyDir: {}
+          containers:
+          - image: ubuntu:latest
+            name: volume-container-devops-1
+            command: ["sleep","1000"]
+            volumeMounts:
+            - mountPath: /tmp/ecommerce
+              name: volume-share
+          - image: ubuntu:latest
+            name: volume-container-devops-2
+            command: ["sleep","1000"]
+            volumeMounts:
+            - mountPath: /tmp/cluster
+              name: volume-share
+
+2. Since same shared host volume is used by both container, any changes reflect on each other:
+
+      kubectl exec -it pod-name -c container-name -- /bin/bash 
+

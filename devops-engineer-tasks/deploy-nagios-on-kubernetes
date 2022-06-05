@@ -1,1 +1,46 @@
 
+To run multiple commands: 
+
+    containers:
+      - name: mysqldump
+        image: mysql
+        command: ["/bin/sh", "-c"]
+        args:
+          - echo starting;
+            ls -la /backups;
+            mysqldump --host=... -r /backups/file.sql db_name;
+            ls -la /backups;
+            echo done;
+        volumeMounts:
+
+Alternative way: 
+
+      containers:
+      - name: busy
+        image: busybox:1.28
+        command: ["/bin/sh", "-c"]
+        args:
+        - >
+          command_1 &&
+          command_2 &&
+          ... 
+          command_n
+
+Alternatives: 
+
+      containers:
+      - command:
+        - /bin/sh
+        - -c
+        - |
+          echo "running below scripts"
+          i=0; 
+          while true; 
+          do 
+            echo "$i: $(date)"; 
+            i=$((i+1)); 
+            sleep 1; 
+          done
+        name: busybox
+        
+        

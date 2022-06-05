@@ -1,0 +1,14 @@
+
+
+Merge Conflict: 
+
+    When git cant manage merge due to same line changes.
+
+Conflict arises:
+    1. when 2 people changed same line in a file.
+    2. When one deleted a file. 
+    3. When other modified a file. 
+
+In those conflicts, git cannot automatically determine what is correct. 
+
+
