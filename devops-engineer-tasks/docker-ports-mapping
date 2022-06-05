@@ -1,0 +1,17 @@
+
+-p host-port:container-port/protocal 
+-p 8080:80/tcp 
+docker run -p 10.0.0.3:80:8080 nginx
+
+1. Pull docker image: 
+
+      docker image pull nginx:alpine-perl
+
+2. Run the continer: 
+
+      docker container run --name demo -p 6300:80 nginx:alpine-perl
+
+NOTE: docker pull is not mandatory. If image not in local, during run, will be pulled. 
+
+
+
