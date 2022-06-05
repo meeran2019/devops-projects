@@ -1,0 +1,42 @@
+
+1. Create the pod: 
+
+NOTE:  For busybox, suport only /bin/sh : 
+
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: time-check
+      name: time-check
+      namespace: xfusion
+    spec:
+      volumes:
+        - name: log-volume
+          emptyDir: {}
+      containers:
+      - image: busybox:latest
+        name: time-check
+        env:
+          - name: TIME_FREQ
+            valueFrom:
+              configMapKeyRef:
+                name: time-config
+                key: TIME_FREQ
+        command:
+        - /bin/sh
+        - -c
+        - |
+          while true; do date; sleep $TIME_FREQ;done > /opt/sysops/time/time-check.log
+        volumeMounts:
+        - mountPath: /opt/sysops/time
+          name: log-volume      
+
+          
+2. For verification: 
+
+    kubectl exec -it pod-name -c container-name -n=namespace -- /bin/sh 
+
+
+

@@ -1,2 +1,42 @@
+:
+Bare repository is one in which local development is not allowed : 
+        --bare 
+
+Install Git and Configure name/email: 
+
+    sudo yum install git -y
+    git --version
+    git config --global user.name "Your Name"
+    git config --global user.email "you@example.com"
+    git config --list
+
+Create Local Repository: 
+
+    git init reponame --bare 
+    sudo git init news.git
+
+Update hook: (To block push to master branch)
+
+    hook is shell script used for some actions like allow / block / trigger. 
+    Place the hook file under repo/.git/hooks/update 
+
+Clone the repository: 
+
+    sudo git clone /opt/news.git /usr/src/kodekloudrepos/news
+    git clone REPO Directory. 
+
+Create a new branch: 
+
+    git checkout -b branch-name 
+
+Verification: 
+
+    1. When push from another branch, allow to push. 
+
+            git push origin another-branch 
+
+    2. When push from master branch, it reject it. 
+
+            git push origin master 
 
 

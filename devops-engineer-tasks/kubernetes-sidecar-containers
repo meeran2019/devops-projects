@@ -1,0 +1,36 @@
+
+1. Create the yaml file: 
+
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: webserver
+      name: webserver
+    spec:
+      volumes:
+      - name: shared-logs
+        emptyDir: {}
+      containers:
+      - image: nginx:latest
+        name: nginx-container
+        volumeMounts:
+          - mountPath: /var/log/nginx
+            name: shared-logs
+      - image: ubuntu:latest
+        name: sidecar-container
+        command: ["sh", "-c"]
+        args: ["while true; do cat /var/log/nginx/access.log /var/log/nginx/error.log; sleep 30; done"]
+        volumeMounts:
+          - mountPath: /var/log/nginx
+            name: shared-logs
+            
+
+2. To validate: 
+
+    kubectl exec -it pod-name -c container-name -- /bin/bash 
+
+    Since same path is mounted, can have the same data in other container.
+
+    
