@@ -1,0 +1,13 @@
+
+1. Check any error in pod 
+    kubectl describe pod pod-name 
+
+2. Check the error message "imagepullbackoff" error. 
+
+3. Check the image name. 
+
+4. To update image name: 
+
+        kubectl set image deploy deploy-name container-name=image-name 
+
+        
