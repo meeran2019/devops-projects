@@ -1,7 +1,7 @@
 
 1. Created the inventory file: 
         [all-servers]
-        alias-name  ansible_user=xxx ansible_host=11.12.13.14 ansble_ssh_pass=qwer
+        alias-name  ansible_user=xxx ansible_host=11.12.13.14 ansble_ssh_pass=qwer 
 
 2. Use copy module:
 
