@@ -65,7 +65,7 @@ spec:
       claimName: pvc-xfusion
   containers:
   - image: httpd:latest
-    name: pod-xfusion
+    name: container-xfusion
     volumeMounts:
     - name: pvc-xfusion
       mountPath: /var/www/html/
