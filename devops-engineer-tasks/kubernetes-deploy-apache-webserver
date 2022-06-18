@@ -1,0 +1,47 @@
+
+There is an application that needs to be deployed on Kubernetes cluster under Apache web server. The Nautilus application development team has asked the DevOps team to deploy it. We need to develop a template as per requirements mentioned below:
+
+
+
+Create a namespace named as httpd-namespace-xfusion.
+
+Create a deployment named as httpd-deployment-xfusion under newly created namespace. For the deployment use httpd image with latest tag only and remember to mention the tag i.e httpd:latest, and make sure replica counts are 2.
+
+Create a service named as httpd-service-xfusion under same namespace to expose the deployment, nodePort should be 30004.
+
+Note: The kubectl utility on jump_host has been configured to work with the kubernetes cluster.
+
+-----------
+
+
+1. TO create the namespace 
+
+        kubectl create ns httpd-namespace-xfusion
+
+2. Create a deployment
+
+        kubectl create deploy httpd-deployment-xfusion --image=httpd:latest --replicas=2 -n=httpd-namespace-xfusion
+
+3. Create a service
+
+        apiVersion: v1
+        kind: Service
+        metadata:
+        creationTimestamp: null
+        labels:
+            app: httpd-deployment-xfusion
+        name: httpd-service-xfusion
+        namespace: httpd-namespace-xfusion
+        spec:
+        type: NodePort
+        ports:
+        - port: 80
+            protocol: TCP
+            targetPort: 80
+            nodePort: 30004
+        selector:
+            app: httpd-deployment-xfusion
+        status:
+        loadBalancer: {}
+        
+        
